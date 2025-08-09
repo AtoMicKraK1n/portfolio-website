@@ -1,97 +1,67 @@
-import { Card } from "@/components/ui/card";
-
-// Mock data for GitHub contributions
-const generateContributions = () => {
-  const contributions = [];
-  const today = new Date();
-  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-  
-  for (let i = 0; i < 365; i++) {
-    const date = new Date(oneYearAgo);
-    date.setDate(date.getDate() + i);
-    
-    // Generate random contribution count (0-4 for different intensities)
-    const count = Math.floor(Math.random() * 5);
-    contributions.push({
-      date: date.toISOString().split('T')[0],
-      count,
-    });
-  }
-  
-  return contributions;
-};
+import GitHubCalendar from 'react-github-calendar';
+import { useTheme } from 'next-themes';
 
 const GitHubContributions = () => {
-  const contributions = generateContributions();
-  
-  const getIntensityClass = (count: number) => {
-    if (count === 0) return "bg-muted/50";
-    if (count === 1) return "bg-primary/20";
-    if (count === 2) return "bg-primary/40";
-    if (count === 3) return "bg-primary/60";
-    return "bg-primary";
+  const { theme } = useTheme();
+
+  const selectLastHalfYear = (contributions: any) => {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
+    const shownMonths = 6;
+
+    return contributions.filter((activity: any) => {
+      const date = new Date(activity.date);
+      const monthOfDay = date.getMonth();
+
+      return (
+        date.getFullYear() === currentYear &&
+        monthOfDay > currentMonth - shownMonths &&
+        monthOfDay <= currentMonth
+      );
+    });
+  };
+
+  const calendarTheme = {
+    light: ['hsl(40, 20%, 85%)', 'hsl(8, 65%, 85%)', 'hsl(8, 65%, 65%)', 'hsl(8, 65%, 45%)', 'hsl(8, 65%, 35%)'],
+    dark: ['hsl(30, 15%, 18%)', 'hsl(8, 75%, 75%)', 'hsl(8, 75%, 65%)', 'hsl(8, 75%, 55%)', 'hsl(8, 75%, 45%)'],
   };
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <Card className="p-8 western-shadow">
-          {/* Header */}
-          <div className="space-y-4 mb-8">
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-primary">
-              Frontier Activity
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              A year's worth of code contributions across the digital wilderness
-            </p>
-          </div>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center space-y-4 mb-12">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-primary">
+            Frontier Activity
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Tracking my journey through the digital wilderness. Every commit tells a story of progress and discovery.
+          </p>
+        </div>
 
-          {/* Contribution Graph */}
-          <div className="space-y-4">
-            {/* Month labels */}
-            <div className="grid grid-cols-12 gap-1 text-xs text-muted-foreground mb-2">
-              {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month, index) => (
-                <div key={month} className={index % 2 === 0 ? "" : "opacity-0"}>
-                  {month}
-                </div>
-              ))}
-            </div>
-
-            {/* Contribution grid */}
-            <div className="grid grid-cols-53 gap-1 max-w-4xl">
-              {contributions.map((day, index) => (
-                <div
-                  key={index}
-                  className={`
-                    w-3 h-3 rounded-sm transition-western hover:scale-125 hover:glow-effect cursor-pointer
-                    ${getIntensityClass(day.count)}
-                  `}
-                  title={`${day.count} contributions on ${day.date}`}
-                />
-              ))}
-            </div>
-
-            {/* Legend */}
-            <div className="flex items-center justify-between pt-4">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <span>Less</span>
-                <div className="flex space-x-1">
-                  {[0, 1, 2, 3, 4].map((level) => (
-                    <div
-                      key={level}
-                      className={`w-3 h-3 rounded-sm ${getIntensityClass(level)}`}
-                    />
-                  ))}
-                </div>
-                <span>More</span>
-              </div>
-              
-              <div className="text-sm text-muted-foreground">
-                <span className="font-medium text-primary">287</span> contributions in the last year
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl overflow-auto">
+            <div className="bg-card p-6 rounded-lg western-shadow">
+              <GitHubCalendar
+                username="AtoMicKrak1n"
+                transformData={selectLastHalfYear}
+                theme={calendarTheme}
+                colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                fontSize={12}
+                blockSize={12}
+                blockMargin={4}
+                showWeekdayLabels
+                style={{
+                  color: 'hsl(var(--foreground))',
+                }}
+              />
+              <div className="mt-4 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Last 6 months of contributions on GitHub
+                </p>
               </div>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </section>
   );
