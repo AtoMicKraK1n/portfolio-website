@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
-import Projects from "./pages/Projects";
+import POW from "./pages/POW";
 import Blog from "./pages/Blog";
 import Photos from "./pages/Photos";
 import NotFound from "./pages/NotFound";
@@ -21,7 +21,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/proofofwork" element={<POW />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/photos" element={<Photos />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

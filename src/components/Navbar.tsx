@@ -8,11 +8,7 @@ import cowboyHatIcon from "@/assets/cowboy-hat-icon.png";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = [
-    { label: "Blog", href: "/blog" },
-    { label: "Projects", href: "/projects" },
-    { label: "Photos", href: "/photos" },
-  ];
+  const navItems = [{ label: "ProofOfWork", href: "/proofofwork" }];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border western-shadow">
@@ -20,13 +16,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img 
-              src={cowboyHatIcon} 
-              alt="Western Portfolio" 
+            <img
+              src={cowboyHatIcon}
+              alt="Western Portfolio"
               className="w-8 h-8 transition-western hover:scale-110"
             />
             <span className="text-xl font-heading font-bold text-primary">
-              Western.dev
+              Prakhar Sharma
             </span>
           </Link>
 

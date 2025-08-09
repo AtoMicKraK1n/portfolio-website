@@ -4,24 +4,25 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 
-type ProjectType = "web2" | "web3";
+type POWType = "web2" | "web3";
 
-interface Project {
+interface ProofOfWork {
   id: string;
   title: string;
   description: string;
-  type: ProjectType;
+  type: POWType;
   technologies: string[];
   githubUrl?: string;
   liveUrl?: string;
   image?: string;
 }
 
-const projects: Project[] = [
+const pows: ProofOfWork[] = [
   {
     id: "1",
     title: "Saloon Dashboard",
-    description: "A modern analytics dashboard built with React and TypeScript, featuring real-time data visualization and responsive design.",
+    description:
+      "A modern analytics dashboard built with React and TypeScript, featuring real-time data visualization and responsive design.",
     type: "web2",
     technologies: ["React", "TypeScript", "Chart.js", "Tailwind CSS"],
     githubUrl: "#",
@@ -30,7 +31,8 @@ const projects: Project[] = [
   {
     id: "2",
     title: "Frontier E-commerce",
-    description: "Full-stack e-commerce platform with payment integration, inventory management, and admin dashboard.",
+    description:
+      "Full-stack e-commerce platform with payment integration, inventory management, and admin dashboard.",
     type: "web2",
     technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
     githubUrl: "#",
@@ -39,7 +41,8 @@ const projects: Project[] = [
   {
     id: "3",
     title: "Wild West NFT Marketplace",
-    description: "Decentralized marketplace for trading NFTs with smart contract integration and wallet connectivity.",
+    description:
+      "Decentralized marketplace for trading NFTs with smart contract integration and wallet connectivity.",
     type: "web3",
     technologies: ["React", "Ethereum", "Solidity", "Web3.js"],
     githubUrl: "#",
@@ -48,7 +51,8 @@ const projects: Project[] = [
   {
     id: "4",
     title: "DeFi Staking Protocol",
-    description: "Smart contract protocol for yield farming and liquidity provision with automated reward distribution.",
+    description:
+      "Smart contract protocol for yield farming and liquidity provision with automated reward distribution.",
     type: "web3",
     technologies: ["Solidity", "Hardhat", "OpenZeppelin", "Chainlink"],
     githubUrl: "#",
@@ -56,10 +60,10 @@ const projects: Project[] = [
   },
 ];
 
-const ProjectsSection = () => {
-  const [activeType, setActiveType] = useState<ProjectType>("web2");
+const PoWSection = () => {
+  const [activeType, setActiveType] = useState<POWType>("web2");
 
-  const filteredProjects = projects.filter(project => project.type === activeType);
+  const filteredProjects = pows.filter((pow) => pow.type === activeType);
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -67,10 +71,10 @@ const ProjectsSection = () => {
         {/* Section Header */}
         <div className="text-center space-y-4 mb-12">
           <h2 className="text-4xl sm:text-5xl font-heading font-bold text-primary">
-            Trail of Projects
+            Proof of Work
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A collection of digital frontier adventures spanning traditional web development and the blockchain wilderness.
+            A collection of my recent works, where i put my soul and energy into
           </p>
         </div>
 
@@ -79,8 +83,8 @@ const ProjectsSection = () => {
           <div className="bg-card rounded-full p-2 western-shadow">
             <div className="flex space-x-2">
               {[
-                { type: "web2" as ProjectType, label: "Web2 Saloon" },
-                { type: "web3" as ProjectType, label: "Web3 Frontier" },
+                { type: "web2" as POWType, label: "Web2 Saloon" },
+                { type: "web3" as POWType, label: "Web3 Frontier" },
               ].map(({ type, label }) => (
                 <Button
                   key={type}
@@ -88,9 +92,10 @@ const ProjectsSection = () => {
                   variant={activeType === type ? "default" : "ghost"}
                   className={`
                     btn-western px-6 py-2 rounded-full font-medium transition-western
-                    ${activeType === type 
-                      ? "bg-primary text-primary-foreground" 
-                      : "text-muted-foreground hover:text-accent hover:bg-accent/10"
+                    ${
+                      activeType === type
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:text-accent hover:bg-accent/10"
                     }
                   `}
                 >
@@ -104,7 +109,10 @@ const ProjectsSection = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {filteredProjects.map((project) => (
-            <Card key={project.id} className="p-6 western-shadow hover:glow-effect transition-western group">
+            <Card
+              key={project.id}
+              className="p-6 western-shadow hover:glow-effect transition-western group"
+            >
               <div className="space-y-4">
                 {/* Project Image Placeholder */}
                 <div className="w-full h-48 bg-gradient-sunset rounded-lg flex items-center justify-center">
@@ -125,9 +133,9 @@ const ProjectsSection = () => {
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech) => (
-                      <Badge 
-                        key={tech} 
-                        variant="secondary" 
+                      <Badge
+                        key={tech}
+                        variant="secondary"
                         className="bg-muted text-muted-foreground hover:bg-accent/20 hover:text-accent transition-western"
                       >
                         {tech}
@@ -138,9 +146,9 @@ const ProjectsSection = () => {
                   {/* Action Buttons */}
                   <div className="flex space-x-4 pt-2">
                     {project.githubUrl && (
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
+                      <Button
+                        size="sm"
+                        variant="outline"
                         className="btn-western border-primary text-primary hover:bg-primary/10"
                         asChild
                       >
@@ -151,8 +159,8 @@ const ProjectsSection = () => {
                       </Button>
                     )}
                     {project.liveUrl && (
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="btn-western bg-primary hover:bg-primary/90 text-primary-foreground"
                         asChild
                       >
@@ -173,4 +181,4 @@ const ProjectsSection = () => {
   );
 };
 
-export default ProjectsSection;
+export default PoWSection;
