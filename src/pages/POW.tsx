@@ -215,7 +215,7 @@ const pows: ProofOfWork[] = [
       "Bankrun",
     ],
     prUrl: "",
-    liveUrl: "https://jin-ai-sigma.vercel.app/",
+    liveUrl: "https://github.com/AtoMicKraK1n/JinAI",
     image: "/jinailive.jpg",
     status: "Ongoing",
   },
