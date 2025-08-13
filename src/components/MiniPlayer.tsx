@@ -30,7 +30,7 @@ const MiniPlayer: React.FC<MiniPlayerProps> = ({
   return (
     <div className="flex items-center bg-primary text-primary-foreground rounded-lg shadow-md overflow-hidden transition-colors hover:bg-primary/90 w-56">
       {/* Cover Art */}
-      <img src={cover} alt={title} className="w-12 h-12 object-cover" />
+      <img src={cover} alt={title} className="w-10 h-10 object-cover" />
 
       {/* Song Info */}
       <div className="px-3 flex flex-col flex-grow overflow-hidden">

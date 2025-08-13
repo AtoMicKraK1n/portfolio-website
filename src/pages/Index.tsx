@@ -60,7 +60,7 @@ const Index = () => {
                 <p>
                   I am also a{" "}
                   <span className="text-primary font-medium">
-                    1x grant recipent
+                    1x grant recipient
                   </span>{" "}
                   from Solana Foundation
                 </p>
